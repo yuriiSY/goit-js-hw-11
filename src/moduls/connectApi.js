@@ -12,6 +12,7 @@ export async function fetchData(search, page) {
     per_page: 40,
     page: page,
   });
+
   try {
     const response = await axios.get(`${BASE_URL}/?${OPTIONS}`);
     const hits = await response.data.totalHits;

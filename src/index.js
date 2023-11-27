@@ -16,6 +16,7 @@ function loadmore() {
   fetchData(query, page)
     .then(responce => {
       gallery.insertAdjacentHTML('beforeend', createMarkup(responce.data.hits));
+
       if (responce.data.totalHits <= gallery.childElementCount) {
         button.classList.toggle('hidden');
         Notiflix.Notify.failure(
@@ -39,9 +40,10 @@ function onSubmit(evnt) {
   query = evnt.currentTarget.elements.searchQuery.value;
   fetchData(query, page)
     .then(responce => {
-      console.log(responce);
       gallery.innerHTML = createMarkup(responce.data.hits);
-      button.classList.toggle('hidden');
+      if (responce.data.totalHits >= 40) {
+        button.classList.remove('hidden');
+      }
     })
     .catch(() => {
       button.classList.add('hidden');
